@@ -1,5 +1,5 @@
 <?php
-//Paramètres de connexion
+//Paramètres de connexion et initialisation des variables
 
 $host='localhost';
 $username='root';
