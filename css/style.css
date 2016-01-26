@@ -1,0 +1,26 @@
+.form-control {
+    margin: auto;
+}
+
+#button-login {
+    margin: auto;
+}
+
+.form-signin {
+    width: 33%;
+    margin: auto;
+    margin-top: 10%;
+    border: 5px solid #f0ad4e;
+    border-radius: 3%;
+    padding: 5%;
+}
+
+body {
+    background-image: url(../resources/img.jpg);
+    background-size: 100%;
+}
+
+.btn-primary {
+    background-color: #f0ad4e !important;
+    border-color: #f0ad4e !important;
+}
