@@ -26,6 +26,17 @@ if($_SESSION['admin'] == true){
             echo 'erreur lors de l\'ajout de la destination' .$ex->getMessage();
         }
     }
+
+    else if(isset($_POST['aeroport']) && isset($_POST['destination_aero'])){
+        try {
+            $req = $bdd->exec("INSERT INTO aeroport (libelle_dest, description_dest) VALUES ('" . $_POST['destination'] . "','" . $_POST['destination_descr'] . "' )");
+            echo 'destination ajoutée';
+        }
+
+        catch(Exception $ex){
+            echo 'erreur lors de l\'ajout de la destination' .$ex->getMessage();
+        }
+    }
 }
 
 else {

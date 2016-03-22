@@ -24,3 +24,8 @@ body {
     background-color: #f0ad4e !important;
     border-color: #f0ad4e !important;
 }
+
+form {
+    width: 40%;
+    margin: auto;
+}
