@@ -59,7 +59,7 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="connexion">
 <form class="form-signin" method="post" action="">
     <input type="text" class="form-control" placeholder="Login" name="login" required autofocus><br>
     <input type="password" class="form-control" placeholder="Password" name="password" required><br>
