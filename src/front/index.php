@@ -1,9 +1,8 @@
 <?php
-
 if(!empty($_POST['login']) && !empty($_POST['password']) )
 {
-
     require_once('../../Entity/connexion_db.php');
+    $bdd = connexion_db::getInstance();
 
 
     $salt = "1897a";

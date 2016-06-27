@@ -1,5 +1,6 @@
 <?php
 require_once('../../Entity/connexion_db.php');
+require_once('../../Entity/compagnie.php');
 session_start();
 
 if($_SESSION['admin'] == true){
@@ -7,8 +8,10 @@ if($_SESSION['admin'] == true){
 
     if(isset($_POST['compagnie'])){
         try {
-            $req = $bdd->exec("INSERT INTO compagnie (libelle_comp) VALUES ('" . $_POST['compagnie'] . "')");
-            echo 'compagnie ajoutée';
+           // $req = $bdd->exec("INSERT INTO compagnie (libelle_comp) VALUES ('" . $_POST['compagnie'] . "')");
+           // echo 'compagnie ajoutée';
+            $compagnie = new Compagnie();
+            $compagnie ->addCompagnie($_POST['compagnie']);
         }
 
         catch(Exception $ex){
