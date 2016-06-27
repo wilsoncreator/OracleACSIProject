@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier utilisateur</title>
+</head>
+<body>
+
+<h2>Modifier utilisateur</h2>
+
+<form>
+    <table>
+        <tr>
+            <td><label>Login :</label></td>
+            <td><input type="text" name="Login" value="login"></td>
+        </tr>
+        <tr>
+            <td><label>Mot de passe :</label></td>
+            <td><input type="password" name="mdp" value="*****"></td>
+        </tr>
+        <tr>
+            <td><label>Adresse e-mail :</label></td>
+            <td><input type="text" name="mail" value="exemple@mail.com"></td>
+        </tr>
+        <tr>
+            <td><label>Nom :</label></td>
+            <td><input type="text" name="nom" value="Nom"></td>
+        </tr>
+        <tr>
+            <td><label>Prénom :</label></td>
+            <td><input type="text" name="prenom" value="Prénom"></td>
+        </tr>
+        <tr>
+            <td><label>Civilité :</label></td>
+            <td><select name="civilite">
+                <option selected disabled>...</option>
+                <option value = "M">M.</option>
+                <option value = "Mme">Mme</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label>Date de naissance :</label></td>
+            <td><input type="text" name="jour" size="2" value="JJ"> /
+                <input type="text" name="mois" size="2" value="MM"> /
+                <input type="text" name="annee" size="4" value="AAAA"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Enregistrer"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
