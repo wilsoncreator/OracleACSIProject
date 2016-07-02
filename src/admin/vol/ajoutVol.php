@@ -1,19 +1,21 @@
 <?php
 require_once('../../../Entity/connexion_db.php');
+require_once('../../../Entity/vol.php');
 $bdd = connexion_db::getInstance();
 session_start();
 
 if($_SESSION['admin'] == true) {
     //echo 'OK';
 
-    if(isset($_POST['prix_vol']) ){
+    if(isset($_POST['prix_vol']) && isset($_POST['date_dep_vol']) && isset($_POST['date_arr_vol']) && isset($_POST['nbplaces_vol'])&& isset($_POST['nbcorress_vol'])&& isset($_POST['compagnie_vol'])&& isset($_POST['destination_vol'])&& isset($_POST['aero_dep_vol'])&& isset($_POST['aero_arr_vol']) ){
         try {
-            $req = $bdd->exec("INSERT INTO vol (prix_vol, date_depart, date_arrivee, nb_places_vol, nb_corresp_vol, id_comp, id_dest, id_aero, id_aero_AEROPORT) VALUES ('" . $_POST['prix_vol'] . "','" . $_POST['date_dep_vol'] . "','" . $_POST['date_arr_vol'] . "','" . $_POST['nbplaces_vol'] . "','" . $_POST['nbcorress_vol'] . "','" . $_POST['compagnie_vol'] . "','" . $_POST['destination_vol'] . "','" . $_POST['aero_dep_vol'] . "','" . $_POST['aero_arr_vol'] . "')");
-            echo 'aeroport ajoutée';
+            $vol = new vol($_POST['prix_vol'],$_POST['date_dep_vol'],$_POST['date_arr_vol'],$_POST['nbplaces_vol'],$_POST['nbcorress_vol'],$_POST['compagnie_vol'], $_POST['destination_vol'], $_POST['aero_dep_vol'],$_POST['aero_arr_vol']);
+            $vol ->addVol($vol->getPrix(),$vol->getDepart(),$vol->getArrivee(),$vol->getNbplaces(),$vol->getNbcorresp(),$vol->getCompagnie(),$vol->getDestination(),$vol->getAerodepart(),$vol->getAeroarrive());
+            echo 'vol ajoutée';
         }
 
         catch(Exception $ex){
-            echo 'erreur lors de l\'ajout du vol '.$ex->getMessage().$_POST['aero_dep_vol'].$_POST['aero_arr_vol'];
+            echo 'erreur lors de l\'ajout du vol '.$ex->getMessage();
         }
     }
 }

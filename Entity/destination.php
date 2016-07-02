@@ -2,6 +2,7 @@
 
 class destination
 {
+    var $id;
     var $nom;
     var $photo;
     var $description;
@@ -22,6 +23,22 @@ class destination
     function addDestination($nom, $photo, $description){
         $bdd = connexion_db::getInstance();
         $bdd->exec("INSERT INTO destination (libelle_dest, description_dest, image_dest) VALUES ('".$nom."','".$description."','".$photo."')");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
