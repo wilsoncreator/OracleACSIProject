@@ -23,7 +23,9 @@ session_start();
     <?php
 
     //Connexion à la base de données
-    require_once('../../entity/connexion_db.php');
+    require_once('../../Entity/connexion_db.php');
+    require_once('../../Entity/utilisateur.php');
+    $bdd = connexion_db::getInstance();
 
     //Initialisation du message d'erreur
     $message_erreur = '';
@@ -42,11 +44,11 @@ session_start();
             $datenaiss=$_POST['datenaiss'];
 
             //Vérification si l'identifiant existe déjà
-            $requete=$db->query("SELECT * FROM utilisateur WHERE login='$login'");
+            $requete=$bdd->query("SELECT * FROM utilisateur WHERE login='$login'");
             $user = $requete->fetch();
 
             //Vérification si le mail existe déjà
-            $requete2=$db->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
+            $requete2=$bdd->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
             $user2 = $requete2->fetch();
 
             if ($user){
@@ -67,9 +69,9 @@ session_start();
                     $hash=password_hash($password,PASSWORD_DEFAULT);
 
                     // Ajout de l'utilisateur dans la base
+                    $utilisateur = new utilisateur($nom,$prenom,$mail,$civ,$datenaiss,$login,$hash);
 
-
-                    $requete=$db->exec("INSERT INTO utilisateur (nom_usr,prenom_usr,mail_usr,civilite_usr,date_naiss_usr,login,password) VALUES ('".$nom."','".$prenom."','".$mail."','".$civ."','".$datenaiss."','".$login."','".$hash."')");
+                    $utilisateur->addUtilisateur($nom,$prenom,$mail,$civ,$datenaiss,$login,$hash);
                     echo 'compte ajouté';
                 }
                 catch(Exception $ex){
