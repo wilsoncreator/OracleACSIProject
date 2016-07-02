@@ -1,5 +1,6 @@
 <?php
 require_once('../../../Entity/connexion_db.php');
+require_once('../../../Entity/destination.php');
 session_start();
 
 if($_SESSION['admin'] == true) {
@@ -7,8 +8,8 @@ if($_SESSION['admin'] == true) {
 
     if(isset($_POST['destination']) && isset($_POST['destination_descr']) && isset($_POST['image']) ){
         try {
-            $req = $bdd->exec("INSERT INTO destination (libelle_dest, description_dest, image_dest) VALUES ('" . $_POST['destination'] . "','" . $_POST['destination_descr'] . "','" . $_POST['image'] . "' )");
-            echo 'destination ajoutée';
+            $destination = new destination($_POST['destination'], $_POST['image'], $_POST['destination_descr']);
+            $destination->addDestination($destination->getNom(), $destination->getPhoto(), $destination->getDescription());
         }
 
         catch(Exception $ex){

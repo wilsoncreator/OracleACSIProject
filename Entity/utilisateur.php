@@ -37,6 +37,134 @@ class utilisateur
         $bdd->exec("INSERT INTO utilisateur (nom_usr,prenom_usr,mail_usr,civilite_usr,date_naiss_usr,login,password) VALUES ('".$nom."','".$prenom."','".$mail."','".$civilite."','".$datenaissance."','".$login."','".$password."')");
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param mixed $prenom
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param mixed $mail
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCivilite()
+    {
+        return $this->civilite;
+    }
+
+    /**
+     * @param mixed $civilite
+     */
+    public function setCivilite($civilite)
+    {
+        $this->civilite = $civilite;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatenaissance()
+    {
+        return $this->datenaissance;
+    }
+
+    /**
+     * @param mixed $datenaissance
+     */
+    public function setDatenaissance($datenaissance)
+    {
+        $this->datenaissance = $datenaissance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param mixed $login
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
     function getUtilisateurById($id){
         $bdd = connexion_db::getInstance();
         $req = $bdd->query("SELECT * FROM utilisateur WHERE id_usr = '.$id.'");

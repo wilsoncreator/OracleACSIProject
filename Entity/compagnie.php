@@ -7,6 +7,6 @@ class compagnie
 
     function addCompagnie($nom){
         $bdd = connexion_db::getInstance();
-        $req = $bdd->exec("INSERT INTO compagnie (libelle_comp) VALUES ('" . $nom . "')");
+        $bdd->exec("INSERT INTO compagnie (libelle_comp) VALUES ('" . $nom . "')");
     }
 }

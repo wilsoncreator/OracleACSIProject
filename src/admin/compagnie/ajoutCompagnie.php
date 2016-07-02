@@ -1,5 +1,6 @@
 <?php
 require_once('../../../Entity/connexion_db.php');
+require_once('../../../Entity/compagnie.php');
 session_start();
 
 if($_SESSION['admin'] == true) {

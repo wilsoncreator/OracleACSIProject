@@ -155,6 +155,7 @@
 
     <!-- FOOTER -->
     <footer>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
         <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
