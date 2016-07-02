@@ -62,7 +62,8 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
 <form class="form-signin" method="post" action="">
     <input type="text" class="form-control" placeholder="Login" name="login" required autofocus><br>
     <input type="password" class="form-control" placeholder="Password" name="password" required><br>
-    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Connexion</button>
+    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Créer un compte</button>
 </form>
 </body>
 </html>
