@@ -35,6 +35,20 @@ body {
   width: auto;
 }
 
+.inscr-div{
+  width: 700px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.inscr-div h2{
+  text-align: center;
+  padding: 15px;
+}
+.inscr-table{
+  margin: auto;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -107,6 +121,13 @@ body {
 .dest-logo{
   max-height: 40px;
   max-width: 40px;
+}
+
+.reserv-table{
+  margin: auto;
+}
+.reserv-table td{
+  padding: 20px;
 }
 
 

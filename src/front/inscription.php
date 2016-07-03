@@ -5,27 +5,44 @@ session_start();
 ?>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Inscription</title>
-    <meta name="description" content="Texte de description">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="">
-    <!-- <link rel="stylesheet" href="css/styles.css" media="all">	-->
-    <style>
-        fieldset {width: 42%;}
-    </style>
-</head>
-<body>
-<div id="page">
-    <header></header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
+    <title>Inscription - Aerolines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--  <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/aero.css" rel="stylesheet">
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+<?php include('navbar.php'); ?>
 
     <?php
 
     //Connexion à la base de données
-    require_once('../../Entity/connexion_db.php');
-    require_once('../../Entity/utilisateur.php');
-    $bdd = connexion_db::getInstance();
+    require_once('../../entity/connexion_db.php');
 
     //Initialisation du message d'erreur
     $message_erreur = '';
@@ -44,11 +61,11 @@ session_start();
             $datenaiss=$_POST['datenaiss'];
 
             //Vérification si l'identifiant existe déjà
-            $requete=$bdd->query("SELECT * FROM utilisateur WHERE login='$login'");
+            $requete=$db->query("SELECT * FROM utilisateur WHERE login='$login'");
             $user = $requete->fetch();
 
             //Vérification si le mail existe déjà
-            $requete2=$bdd->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
+            $requete2=$db->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
             $user2 = $requete2->fetch();
 
             if ($user){
@@ -89,8 +106,10 @@ session_start();
 
     ?>
 
+<div class="container marketing">
+
     <!-- Formulaire -->
-    <div id="Création_compte">
+    <div id="Création_compte" class="inscr-div">
         <h2>Créer un compte utilisateur</h2>
         <p>Tous les champs sont obligatoires</p>
 
@@ -102,15 +121,7 @@ session_start();
         }
         ?>
         <form method="post" action="">
-            <table>
-                <tr>
-                    <td><label for="case">Monsieur</label></td>
-                    <td><input type="radio" name="civ" id="case" value="Male" /></td>
-                </tr>
-
-                <tr>
-                    <td><label for="case">Madame</label></td>
-                    <td><input type="radio" name="civ" id="case" value="Female" /></td>
+            <table class="table inscr-table">
 
                 <tr>
                     <td><label for="login">Login</label></td>
@@ -125,6 +136,14 @@ session_start();
                 <tr>
                     <td><label for="nom_utilisateur">Nom</label></td>
                     <td><input type="text" name="nom" placeholder="Nom" size="25" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="case">Civilité</label></td>
+                    <td><label for="case">M</label>
+                        <input type="radio" name="civ" id="case" value="Homme" />
+                        <label for="case" style="margin-left: 30px;">Mme</label>
+                        <input type="radio" name="civ" id="case" value="femme"/></td>
                 </tr>
 
                 <tr>
@@ -147,15 +166,25 @@ session_start();
                     <td><input type="password" name="password2" placeholder="Vérification" size="25" required></td>
                 </tr>
 
-                <tr id="cellule_bouton" style="float:right; margin-top: 10%;">
-                    <td>
-                        <a href="connection.php" title="Annuler la création de compte"><input type="submit" value="Annuler"  ></a>
-                        <a href="accueil.php" title="Valider"><input type="submit" name="valider" class="bouton_submit" value="Créer"></a></td>
+                <tr id="cellule_bouton">
+                    <td style="padding-top: 25px;">
+                        <input type="submit"  value="Annuler"  >
+                    </td>
+                    <td style="padding-top: 25px;">
+                        <input type="submit" name="valider" class="bouton_submit" value="Créer">
+                    </td>
                 </tr>
             </table>
         </form>
-        </fieldset>
     </div>
-</div>
+
+    <!-- FOOTER -->
+    <footer>
+        <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
+        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Termes</a> &middot; <a href="#">Conditions générales d'utilisation</a></p>
+    </footer>
+
+</div><!-- /.container -->
+
 </body>
 </html>

@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<?php
-if(empty($_GET['destination_id'] )||!isset($_GET['destination_id'])){
-    header("location:../index.php");
-}
-
-require_once('../../Entity/connexion_db.php');
-
-$bdd = connexion_db::getInstance();
-?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -45,27 +36,14 @@ $bdd = connexion_db::getInstance();
 <?php include('navbar.php'); ?>
 
 <div class="dest-img-container">
-    <?php
-
-    $destination = $bdd->query("SELECT image_dest FROM destination WHERE id_dest =".$_GET['destination_id'].";");
-    $dest = $destination->fetch();
-    echo("
-    <img class=\"dest-img\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\">");
-    ?>
+    <img class="dest-img" src="http://escapesmagazine.info/wp-content/uploads/2014/08/lyon-immobilier-neuf-01.jpg" alt="Generic placeholder image">
 </div>
 
 <div class="container marketing">
 
     <div class="row">
         <div class="col-lg-4 destination">
-            <?php
-            $destination = $bdd->query("SELECT * FROM destination WHERE id_dest =".$_GET['destination_id'].";");
-            $dest = $destination->fetch();
-            echo("
-            <h2>".$dest["libelle_dest"]."</h2>
-            <p>".$dest["description_dest"]."</p>
-            <br>"); ?>
-            <h3>Vols disponibles</h3>
+            <h2>Résumé du vol</h2>
             <table class="table table-striped dest-table">
                 <tr>
                     <th></th>
@@ -75,37 +53,42 @@ $bdd = connexion_db::getInstance();
                     <th>Aéroport d'arrivée</th>
                     <th>Places restantes</th>
                     <th>Prix</th>
-                    <th></th>
                 </tr>
-                <!-- Là il faut boucler sur tous les vols pour la destination -->
-                <?php
-
-                $vols = $bdd->query("SELECT * FROM vol WHERE id_dest=".$_GET['destination_id'].";");
-                while($vol = $vols->fetch()) {
-                    $compagnie_logo = $bdd->query("SELECT logo_comp FROM COMPAGNIE WHERE id_comp=".$vol["id_comp"].";");
-                    $compagnie=$compagnie_logo->fetch();
-                    $aero_depart = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=".$vol["id_aero"].";");
-                    $aero_dep = $aero_depart->fetch();
-                    $aero_arrivee = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=".$vol["id_aero_AEROPORT"].";");
-                    $aero_arr = $aero_arrivee->fetch();
-                    echo("
-                    <tr >
-                    <td ><img class=\"dest-logo\" src = \"".$compagnie["logo_comp"]."\" ></td >
-                    <td >".$vol["date_depart"]."</td >
-                    <td >".$aero_dep["libelle_aero"]."</td >
-                    <td >".$vol["date_arrivee"]."</td >
-                    <td >".$aero_arr["libelle_aero"]."</td >
-                    <td >".$vol["nb_places_vol"]."</td >
-                    <td >".$vol["prix_vol"]."€</td >
-                    <td >
-                        <form method=\"POST\" action = \"vol.php?id_vol=".$vol["id_vol"]."\" >
-                            <input type = \"submit\" value = \"Réserver\" >
-                        </form >
-                    </td >
-                </tr >");
-                }
-?>
+                <tr>
+                    <td><img class="dest-logo" src="http://www.pmdm.fr/wp/wp-content/uploads/2009/02/monogramme_copie.jpg"></td>
+                    <td>05/07/2016 14:30</td>
+                    <td>Paris-Orly</td>
+                    <td>05/07/2016 15:40</td>
+                    <td>Lyon-Saint-Exupery</td>
+                    <td>132</td>
+                    <td>150€</td>
+                </tr>
             </table>
+
+            <form>
+                <table class="reserv-table">
+                    <tr>
+                        <td>
+                            <label for="nb_places">Nombre de places : </label>
+                            <select id="nb_places" name="nb_places">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                                <option value=6>6</option>
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                                <option value=10>10</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="submit" value="Réserver">
+                        </td>
+                    </tr>
+                </table>
+            </form>
 
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
@@ -122,4 +105,3 @@ $bdd = connexion_db::getInstance();
     </footer>
 
 </div><!-- /.container -->
-
