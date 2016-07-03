@@ -44,6 +44,11 @@ class vol
         $bdd->exec("INSERT INTO vol (prix_vol, date_depart, date_arrivee, nb_places_vol, nb_corresp_vol, id_comp, id_dest, id_aero, id_aero_AEROPORT) VALUES (".$prix.",'".$depart."','".$arrivee."',".$nbplaces.",'".$nbcorresp."',".$compagnie.",".$destination.",".$aerodepart.",".$aeroarrive.")");
     }
 
+    function updateVol($field, $value, $id){
+        $bdd = connexion_db::getInstance();
+        $bdd->exec("UPDATE vol SET ".$field."=".$value."WHERE id_vol=".$id."");
+    }
+
     /**
      * @return mixed
      */

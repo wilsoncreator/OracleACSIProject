@@ -19,10 +19,16 @@
 
                                 <?php
                                 if(empty($_SESSION["ID"])|| !isset($_SESSION["ID"])){
-                                    echo("<li ><a href=\"/OracleACSIProject/src/front/connection.php\">Se connecter</a></li>");
+                                    echo("
+                                        <li><a href=\"/OracleACSIProject/src/front/recherche-vol.php\">Recherche avancée</a></li>
+                                        <li ><a href=\"/OracleACSIProject/src/front/connection.php\">Se connecter</a></li>
+                                    ");
                                 }
                                 else {
-                                    echo("<li class=\"dropdown\">
+
+                                    echo("
+                            <li><a href=\"/OracleACSIProject/src/front/recherche-vol.php\">Recherche avancée</a></li>
+                            <li class=\"dropdown\">
                             <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Mon compte<span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu\">
                                 <li><a href=\"#\">Mes informations</a></li>

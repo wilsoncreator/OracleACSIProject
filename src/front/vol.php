@@ -1,3 +1,31 @@
+<?php
+
+session_start();
+if(!isset($_SESSION["ID"])){
+    session_destroy();
+}
+
+if(empty($_GET['id_vol'] )||!isset($_GET['id_vol'])){
+    header("location:../index.php");
+}
+
+require_once('../../Entity/connexion_db.php');
+require_once('../../Entity/reserve.php');
+require_once('../../Entity/vol.php');
+
+$bdd = connexion_db::getInstance();
+
+if(isset($_POST["nb_places"])){
+    $vols = $bdd->query("SELECT nb_places_vol, id_vol, prix_vol, id_dest FROM vol WHERE id_vol=".$_GET['id_vol'].";");
+    $vol = $vols->fetch();
+    $reservation = new reserve($_SESSION['ID'], $_GET['id_vol'], $_POST["nb_places"], $vol["prix_vol"]*$_POST["nb_places"]);
+    $reservation->addReserve($reservation->getUser(), $reservation->getVol(), $reservation->getNbplaces(), $reservation->getPrixtotal());
+    $nbplaces = $vol["nb_places_vol"] - $_POST["nb_places"];
+    $bdd->exec("UPDATE vol SET nb_places_vol = ".$nbplaces." WHERE id_vol = ".$_GET['id_vol'].";");
+    $bdd->exec("UPDATE destination SET nbreservation = nbreservation+1 WHERE id_dest=".$vol['id_dest'].";");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +64,14 @@
 <?php include('navbar.php'); ?>
 
 <div class="dest-img-container">
-    <img class="dest-img" src="http://escapesmagazine.info/wp-content/uploads/2014/08/lyon-immobilier-neuf-01.jpg" alt="Generic placeholder image">
+    <?php
+    $vols = $bdd->query("SELECT id_dest FROM vol WHERE id_vol=".$_GET['id_vol'].";");
+    $vol = $vols->fetch();
+    $destination = $bdd->query("SELECT image_dest, nbreservation FROM destination WHERE id_dest=".$vol['id_dest'].";");
+    $dest = $destination->fetch();
+
+    echo("<img class=\"dest-img\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\">");
+?>
 </div>
 
 <div class="container marketing">
@@ -52,20 +87,33 @@
                     <th>Arrivée</th>
                     <th>Aéroport d'arrivée</th>
                     <th>Places restantes</th>
-                    <th>Prix</th>
+                    <th>Prix unitaire</th>
                 </tr>
-                <tr>
-                    <td><img class="dest-logo" src="http://www.pmdm.fr/wp/wp-content/uploads/2009/02/monogramme_copie.jpg"></td>
-                    <td>05/07/2016 14:30</td>
-                    <td>Paris-Orly</td>
-                    <td>05/07/2016 15:40</td>
-                    <td>Lyon-Saint-Exupery</td>
-                    <td>132</td>
-                    <td>150€</td>
-                </tr>
+                <?php
+
+                    $vols = $bdd->query("SELECT * FROM vol WHERE id_vol=".$_GET['id_vol'].";");
+                    $vol = $vols->fetch();
+                    $compagnie_logo = $bdd->query("SELECT logo_comp FROM COMPAGNIE WHERE id_comp=".$vol["id_comp"].";");
+                    $compagnie=$compagnie_logo->fetch();
+                    $aero_depart = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=".$vol["id_aero"].";");
+                    $aero_dep = $aero_depart->fetch();
+                    $aero_arrivee = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=".$vol["id_aero_AEROPORT"].";");
+                    $aero_arr = $aero_arrivee->fetch();
+                    echo("
+                    <tr >
+                    <td ><img class=\"dest-logo\" src = \"".$compagnie["logo_comp"]."\" ></td >
+                    <td >".$vol["date_depart"]."</td >
+                    <td >".$aero_dep["libelle_aero"]."</td >
+                    <td >".$vol["date_arrivee"]."</td >
+                    <td >".$aero_arr["libelle_aero"]."</td >
+                    <td >".$vol["nb_places_vol"]."</td >
+                    <td >".$vol["prix_vol"]."€</td >
+                </tr >");
+
+                ?>
             </table>
 
-            <form>
+            <form method="post">
                 <table class="reserv-table">
                     <tr>
                         <td>
@@ -84,7 +132,9 @@
                             </select>
                         </td>
                         <td>
-                            <input type="submit" value="Réserver">
+                            <?php
+                            echo("<input onclick=\"if(!confirm('Voulez-vous confirmer votre réservation pour ce vol ? ?')) return false;\" type=\"submit\" value=\"Réserver\">");
+                            ?>
                         </td>
                     </tr>
                 </table>

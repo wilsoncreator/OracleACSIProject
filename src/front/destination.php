@@ -1,5 +1,9 @@
-<!DOCTYPE html>
 <?php
+session_start();
+if(!isset($_SESSION["ID"])){
+    session_destroy();
+}
+
 if(empty($_GET['destination_id'] )||!isset($_GET['destination_id'])){
     header("location:../index.php");
 }
@@ -8,6 +12,7 @@ require_once('../../Entity/connexion_db.php');
 
 $bdd = connexion_db::getInstance();
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -98,9 +103,7 @@ $bdd = connexion_db::getInstance();
                     <td >".$vol["nb_places_vol"]."</td >
                     <td >".$vol["prix_vol"]."€</td >
                     <td >
-                        <form method=\"POST\" action = \"vol.php?id_vol=".$vol["id_vol"]."\" >
-                            <input type = \"submit\" value = \"Réserver\" >
-                        </form >
+                    <a class=\"btn btn-default\" href=\"vol.php?id_vol=".$vol["id_vol"]."\" role=\"button\">Réserver &raquo;</a></p>
                     </td >
                 </tr >");
                 }

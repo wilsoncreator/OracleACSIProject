@@ -23,7 +23,7 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
                 $_SESSION['login'] = $_POST['login'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['admin'] = true;
-                $_SESSION['ID'] = $id["id_usr"]."test";
+                $_SESSION['ID'] = $id["id_usr"];
                 header('location: ../admin/admin.php');
                 exit();
             }
@@ -34,7 +34,7 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
                 $_SESSION['login'] = $_POST['login'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['admin'] = false;
-                $_SESSION['ID'] = $id["id_usr"]."test";
+                $_SESSION['ID'] = $id["id_usr"];
                 header('location: ../');
                 exit();
             }
