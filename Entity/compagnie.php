@@ -4,19 +4,23 @@ class compagnie
 
     var $id;
     var $nom;
+    var $logo;
 
     /**
      * compagnie constructor.
      * @param $nom
+     * @param $logo
      */
-    public function __construct($nom)
+    public function __construct($nom, $logo)
     {
         $this->nom = $nom;
+        $this->logo = $logo;
     }
 
-    function addCompagnie($nom){
+
+    function addCompagnie($nom, $logo){
         $bdd = connexion_db::getInstance();
-        $bdd->exec("INSERT INTO compagnie (libelle_comp) VALUES ('" . $nom . "')");
+        $bdd->exec("INSERT INTO compagnie (libelle_comp, logo_comp) VALUES ('" . $nom . "', '" . $logo . "')");
     }
     /**
      * @return mixed
@@ -32,6 +36,22 @@ class compagnie
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param mixed $logo
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
     }
 
     /**

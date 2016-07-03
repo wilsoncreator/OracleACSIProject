@@ -5,14 +5,13 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
     $bdd = connexion_db::getInstance();
 
 
-    $salt = "1897a";
     $reponse_login = $bdd->query('SELECT login FROM utilisateur');
     $reponse_password = $bdd->query('SELECT password FROM utilisateur');
     $IsAuthentified = false;
 
     while ($donnees = $reponse_login->fetch() AND $donees2 = $reponse_password->fetch())
     {
-        if ($_POST['login'] == $donnees['login'] AND $_POST['password'] == $donees2['password'])
+        if ($_POST['login'] == $donnees['login'] AND password_verify($_POST['password'],$donees2['password']))
         {
             $get_id = $bdd->query('SELECT id_usr FROM utilisateur WHERE login = "'.$_POST['login'].'"');
             $id = $get_id->fetch();
@@ -24,6 +23,7 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
                 $_SESSION['login'] = $_POST['login'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['admin'] = true;
+                $_SESSION['ID'] = $id["id_usr"]."test";
                 header('location: ../admin/admin.php');
                 exit();
             }
@@ -34,7 +34,8 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
                 $_SESSION['login'] = $_POST['login'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['admin'] = false;
-                header('location: ../admin/admin.php');
+                $_SESSION['ID'] = $id["id_usr"]."test";
+                header('location: ../');
                 exit();
             }
 
@@ -51,19 +52,24 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <meta charset="UTF-8">
+
     <title>Title</title>
 </head>
 <body class="connexion">
+
 <form class="form-signin" method="post" action="">
     <input type="text" class="form-control" placeholder="Login" name="login" required autofocus><br>
     <input type="password" class="form-control" placeholder="Password" name="password" required><br>
-    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Connexion</button>
-    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Créer un compte</button>
+    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Connexion</button><br>
+    <a class="btn btn-lg btn-primary btn-block" id="button-login" href="inscription.php">Créer un compte</a>
+
 </form>
+
 </body>
 </html>

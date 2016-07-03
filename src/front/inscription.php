@@ -72,6 +72,10 @@ session_start();
                     $utilisateur = new utilisateur($nom,$prenom,$mail,$civ,$datenaiss,$login,$hash);
 
                     $utilisateur->addUtilisateur($nom,$prenom,$mail,$civ,$datenaiss,$login,$hash);
+
+                    $idusr = $bdd->query("SELECT id_usr FROM utilisateur WHERE login ='".$utilisateur->getLogin()."'");
+                    $id = $idusr->fetch();
+                    $bdd->exec("INSERT INTO client(id_usr) VALUES (".$id["id_usr"].");");
                     echo 'compte ajouté';
                 }
                 catch(Exception $ex){
@@ -101,12 +105,12 @@ session_start();
             <table>
                 <tr>
                     <td><label for="case">Monsieur</label></td>
-                    <td><input type="radio" name="civ" id="case" /></td>
+                    <td><input type="radio" name="civ" id="case" value="Male" /></td>
                 </tr>
 
                 <tr>
                     <td><label for="case">Madame</label></td>
-                    <td><input type="radio" name="civ" id="case" /></td>
+                    <td><input type="radio" name="civ" id="case" value="Female" /></td>
 
                 <tr>
                     <td><label for="login">Login</label></td>
@@ -145,7 +149,7 @@ session_start();
 
                 <tr id="cellule_bouton" style="float:right; margin-top: 10%;">
                     <td>
-                        <a href="index.php" title="Annuler la création de compte"><input type="submit"  value="Annuler"  ></a>
+                        <a href="connection.php" title="Annuler la création de compte"><input type="submit" value="Annuler"  ></a>
                         <a href="accueil.php" title="Valider"><input type="submit" name="valider" class="bouton_submit" value="Créer"></a></td>
                 </tr>
             </table>

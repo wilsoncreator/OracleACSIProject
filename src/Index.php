@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+if(!isset($_SESSION["ID"])){
+    session_destroy();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,44 +41,7 @@
 <!-- NAVBAR
 ================================================== -->
 <body>
-<div class="navbar-wrapper">
-    <div class="container">
-
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">AEROLines</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Me connecter</a></li>
-                        <li><a href="#about">À propos</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Divers<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Activités sur place</a></li>
-                                <li><a href="#">Bons plans</a></li>
-                                <li><a href="#">Où partir ?</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Profil</li>
-                                <li><a href="#">Déconnexion</a></li>
-                                <li><a href="#">Mes commandes</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-    </div>
-</div>
+<?php include('front/navbar.php'); ?>
 
 
 <!-- Carousel
@@ -143,7 +114,7 @@
             <img class=\"img-circle\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\" width=\"140\" height=\"140\">
             <h2>".$dest["libelle_dest"]."</h2>
             <p>".$dest["description_dest"]."</p>
-            <p><a class=\"btn btn-default\" href=\"#\" role=\"button\">Voir détails &raquo;</a></p>
+            <p><a class=\"btn btn-default\" href=\"front/destination.php?destination_id=".$dest["id_dest"]."\" role=\"button\">Voir détails &raquo;</a></p>
         </div><!-- /.col-lg-4 -->");
     }
     ?>

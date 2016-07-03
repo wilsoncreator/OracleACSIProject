@@ -3,15 +3,10 @@ require_once('../../Entity/connexion_db.php');
 require_once('../../Entity/compagnie.php');
 session_start();
 
-if($_SESSION['admin'] == true){
-    //echo 'OK';
-
-
+if($_SESSION['admin'] == false){
+    header('location: ../index.php');
 }
 
-else {
-    echo 'KO';
-}
 
 ?>
 

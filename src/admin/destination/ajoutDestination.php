@@ -19,7 +19,7 @@ if($_SESSION['admin'] == true) {
 }
 
 else {
-    echo 'KO';
+    header('location: ../../index.php');
 } ?>
 
 <html lang="en">
