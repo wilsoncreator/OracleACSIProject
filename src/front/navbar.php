@@ -29,7 +29,7 @@
                                     echo("
                             <li><a href=\"/OracleACSIProject/src/front/recherche-vol.php\">Recherche avancée</a></li>
                                 <li><a href=\"/OracleACSIProject/src/front/UserDetail.php\">Mes informations</a></li>
-                                <li><a href=\"#\">Mes commandes</a></li>
+                                <li><a href=\"/OracleACSIProject/src/front/liste-vols.php?\">Mes commandes</a></li>
 
 
                         </li>

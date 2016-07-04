@@ -2,7 +2,9 @@
 session_start();
 if(!isset($_SESSION["ID"])){
     session_destroy();
+    header("location:../index.php");
 }
+
 require_once('../../Entity/connexion_db.php');
 
 $bdd = connexion_db::getInstance();
@@ -16,6 +18,15 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
     $prix = $_GET["prix"];
     $vols = $bdd->query("SELECT * FROM vol WHERE prix_vol < ".$prix." AND id_aero = ".$aerodep." AND id_aero_AEROPORT = ".$aeroarr." AND date_depart BETWEEN '".$depart." 00:00:00' AND '".$depart." 23:59:59';");
 
+}
+
+else{
+    $reserve = $bdd->query("SELECT * FROM reserve WHERE id_usr = ".$_SESSION["ID"].";");
+    $reservations = $reserve->fetch();
+    $nbplaces = $reservations["nbplaces"];
+    $prix = $reservations["prixtotal"];
+    $id = $reservations["id_vol"];
+    $vols = $bdd->query("SELECT * FROM vol WHERE id_vol = ".$id.";");
 }
 
 ?>
@@ -68,7 +79,16 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
                     <th>Aéroport de départ</th>
                     <th>Arrivée</th>
                     <th>Aéroport d'arrivée</th>
-                    <th>Places restantes</th>
+                    <?php
+                    if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]) && isset($_GET["places"]) && isset($_GET["prix"])){
+                        echo("<th>Places restantes</th>");
+                    }
+
+                    else{
+                        echo("<th>Billets achetés</th>");
+                    }
+                    ?>
+
                     <th>Prix</th>
                     <th></th>
                 </tr>
@@ -89,11 +109,19 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
                     <td >" . $vol["date_depart"] . "</td >
                     <td >" . $aero_dep["libelle_aero"] . "</td >
                     <td >" . $vol["date_arrivee"] . "</td >
-                    <td >" . $aero_arr["libelle_aero"] . "</td >
-                    <td >" . $vol["nb_places_vol"] . "</td >
-                    <td >" . $vol["prix_vol"] * $places . "€</td >
-                    <td >
-                        <a class=\"btn btn-default\" href=\"vol.php?id_vol=" . $vol["id_vol"] . "\" role=\"button\">Réserver &raquo;</a></p>
+                    <td >" . $aero_arr["libelle_aero"] . "</td >");
+                    if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]) && isset($_GET["places"]) && isset($_GET["prix"])){
+                        echo("<td >" . $vol["nb_places_vol"] . "</td >
+                        <td >" . $vol["prix_vol"] * $places . "€</td >
+                        <td><a class=\"btn btn-default\" href=\"vol.php?id_vol=" . $vol["id_vol"] . "\" role=\"button\">Réserver &raquo;</a></td></p>");
+                    }
+                        else{
+                            echo("<td >" . $nbplaces . "</td >
+                        <td >" . $prix . "€</td >");
+                        }
+
+                    echo("<td >
+                        
                     </td >
                 </tr >");
                     }

@@ -1,10 +1,6 @@
 <?php
 
-//Paramètres de connexion et initialisation des variables
-$host='localhost';
-$username='root';
-$password='';
-$database='aero_bd';
+
 //Définition de la connexion PDO
 class connexion_db extends PDO
 {
