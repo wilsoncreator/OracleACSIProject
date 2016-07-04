@@ -43,7 +43,8 @@ session_start();
 
     //Connexion à la base de données
     require_once('../../entity/connexion_db.php');
-
+    require_once('../../entity/utilisateur.php');
+    $bdd = connexion_db::getInstance();
     //Initialisation du message d'erreur
     $message_erreur = '';
 
@@ -61,11 +62,11 @@ session_start();
             $datenaiss=$_POST['datenaiss'];
 
             //Vérification si l'identifiant existe déjà
-            $requete=$db->query("SELECT * FROM utilisateur WHERE login='$login'");
+            $requete=$bdd->query("SELECT * FROM utilisateur WHERE login='$login'");
             $user = $requete->fetch();
 
             //Vérification si le mail existe déjà
-            $requete2=$db->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
+            $requete2=$bdd->query("SELECT * FROM utilisateur WHERE mail_usr='$mail'");
             $user2 = $requete2->fetch();
 
             if ($user){
