@@ -137,7 +137,7 @@ if(isset($_POST["nb_places"])){
                             <?php
 
                             for($i = 1; $i <= $vol["nb_places_vol"]; $i++){
-                                echo("<option value=>".$i."</option>");
+                                echo("<option value=".$i.">".$i."</option>");
                             }
                             ?>
                             </select>

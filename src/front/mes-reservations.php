@@ -9,22 +9,9 @@ require_once('../../Entity/connexion_db.php');
 
 $bdd = connexion_db::getInstance();
 
-if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]) && isset($_GET["places"]) && isset($_GET["prix"]))
-{
-    $titre = "Vols disponibles";
-    $depart = $_GET["datedep"];
-    $aerodep = $_GET["aerodep"];
-    $aeroarr = $_GET["aeroarr"];
-    $places = $_GET["places"];
-    $prix = $_GET["prix"];
-    $vols = $bdd->query("SELECT * FROM vol WHERE prix_vol < ".$prix." AND id_aero = ".$aerodep." AND id_aero_AEROPORT = ".$aeroarr." AND date_depart BETWEEN '".$depart." 00:00:00' AND '".$depart." 23:59:59';");
+    $reserve = $bdd->query("SELECT * FROM reserve WHERE id_usr = ".$_SESSION["ID"].";");
 
-}
 
-else {
-    header("location:../index.php");
-
-}
 
 
 ?>
@@ -69,7 +56,7 @@ else {
 
     <div class="row">
         <div class="col-lg-4 destination liste-vols">
-            <h2>Vols disponibles</h2>
+            <h2>Mes réservations</h2>
             <table class="table table-striped dest-table">
                 <tr>
                     <th></th>
@@ -92,9 +79,10 @@ else {
                 </tr>
                 <!-- Là il faut boucler sur les vols qu'on veut -->
                 <?php
+            while($reservations = $reserve->fetch()){
+                $vols = $bdd->query("SELECT * FROM vol WHERE id_vol = ".$reservations["id_vol"].";");
+                $vol = $vols->fetch();
 
-                while($vol = $vols->fetch()) {
-                    if($places <= $vol["nb_places_vol"]) {
                         $compagnie_logo = $bdd->query("SELECT logo_comp FROM COMPAGNIE WHERE id_comp=" . $vol["id_comp"] . ";");
                         $compagnie = $compagnie_logo->fetch();
                         $aero_depart = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=" . $vol["id_aero"] . ";");
@@ -108,19 +96,16 @@ else {
                     <td >" . $aero_dep["libelle_aero"] . "</td >
                     <td >" . $vol["date_arrivee"] . "</td >
                     <td >" . $aero_arr["libelle_aero"] . "</td >
-                        <td >" . $vol["nb_places_vol"] . "</td >
-                        <td >" . $vol["prix_vol"] * $places . "€</td >
-                        <td><a class=\"btn btn-default\" href=\"vol.php?id_vol=" . $vol["id_vol"] . "\" role=\"button\">Réserver &raquo;</a></td></p>
-                    
-
+                    <td >" . $reservations["nbplaces"] . "</td >
+                    <td >" . $reservations["prixtotal"] . "€</td >
                     <td >
                         
                     </td >
                 </tr >");
-                    }
+
                 }
-                
-                
+
+
                 ?>
             </table>
 
