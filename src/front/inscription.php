@@ -181,7 +181,7 @@ session_start();
     <!-- FOOTER -->
     <footer>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Termes</a> &middot; <a href="#">Conditions générales d'utilisation</a></p>
+        <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
 
 </div><!-- /.container -->

@@ -35,20 +35,6 @@ body {
   width: auto;
 }
 
-.inscr-div{
-  width: 700px;
-  margin: auto;
-  margin-top: 60px;
-  margin-bottom: 40px;
-}
-.inscr-div h2{
-  text-align: center;
-  padding: 15px;
-}
-.inscr-table{
-  margin: auto;
-}
-
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -130,6 +116,59 @@ body {
   padding: 20px;
 }
 
+.inscr-div{
+  width: 700px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.inscr-div h2{
+  text-align: center;
+  padding: 15px;
+}
+.inscr-table{
+  margin: auto;
+}
+
+.top-destination-titre{
+  border-radius: 50%;
+  background-color: #f0ad4e;
+  color: white;
+  width: 40px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+.dest-row{
+  width: 800px;
+  margin: auto;
+  margin-top: 60px;
+  text-align: center;
+}
+.dest-row h2{
+  margin-bottom: 25px;
+}
+.dest-1{
+  float: none;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dest-2{
+  width: 50%;
+  float: left;
+}
+.dest-3{
+  width: 50%;
+  float: right;
+}
+.dest-4{
+  width: 50%;
+  float: left;
+}
+.dest-5{
+  width: 50%;
+  float: right;
+}
 
 /* Featurettes
 ------------------------- */

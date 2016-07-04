@@ -5,6 +5,9 @@ if(!isset($_SESSION["ID"])){
     session_destroy();
 }
 
+require_once('../Entity/connexion_db.php');
+
+$bdd = connexion_db::getInstance();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +26,6 @@ if(!isset($_SESSION["ID"])){
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -31,12 +33,11 @@ if(!isset($_SESSION["ID"])){
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="../css/accueil.css" rel="stylesheet">
+    <link href="../css/aero.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -75,12 +76,18 @@ if(!isset($_SESSION["ID"])){
             </div>
         </div>
         <div class="item">
-            <img class="third-slide" src="img/slide/8f97386e1b3a43ab23b3810c5a27d098_large.jpeg" alt="Third slide">
+            <?php
+            $destination = $bdd->query("SELECT image_dest FROM destination ORDER BY nbreservation DESC LIMIT 1");
+            $dest = $destination->fetch();
+            echo("<img class=\"third-slide\" src=\"".$dest["image_dest"]."\" alt=\"Third slide\">");
+            ?>
+
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Le hit parade des destinations</h1>
-                    <p>Informez-vous sur le top 10 des voyages les plus sélectionnés du moment !</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Top destinations</a></p>
+                    <p>Informez-vous sur le top 5 des voyages les plus prisés !</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="front/top-destinations.php" role="button">Top destinations</a></p>
                 </div>
             </div>
         </div>
@@ -108,17 +115,17 @@ if(!isset($_SESSION["ID"])){
 
     $bdd = connexion_db::getInstance();
 
-    $destinations = $bdd->query("SELECT * FROM destination;");
+    $destinations = $bdd->query("SELECT * FROM destination ORDER BY nbvue DESC;");
     while($dest = $destinations->fetch()){
         echo("<div class=\"col-lg-4\">
             <img class=\"img-circle\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\" width=\"140\" height=\"140\">
             <h2>".$dest["libelle_dest"]."</h2>
-            <p>".$dest["description_dest"]."</p>
+            <p>".substr($dest["description_dest"],0,250)."...</p>
             <p><a class=\"btn btn-default\" href=\"front/destination.php?destination_id=".$dest["id_dest"]."\" role=\"button\">Voir détails &raquo;</a></p>
         </div><!-- /.col-lg-4 -->");
     }
     ?>
-
+</div>
     <hr class="featurette-divider">
 
     <!-- /END THE FEATURETTES -->
@@ -126,17 +133,12 @@ if(!isset($_SESSION["ID"])){
 
     <!-- FOOTER -->
     <footer>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
         <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
 
 </div><!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../resources/scripts/jquery.min.js"><\/script>')</script>
 <script src="../resources/scripts/bootstrap.min.js"></script>
@@ -144,5 +146,12 @@ if(!isset($_SESSION["ID"])){
 <!-- <script src="../../assets/js/vendor/holder.min.js"></script> -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
 </body>
 </html>

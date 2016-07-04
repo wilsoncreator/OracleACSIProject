@@ -9,8 +9,15 @@ $bdd = connexion_db::getInstance();
 
 if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]) && isset($_GET["places"]) && isset($_GET["prix"]))
 {
+    $depart = $_GET["datedep"];
+    $aerodep = $_GET["aerodep"];
+    $aeroarr = $_GET["aeroarr"];
+    $places = $_GET["places"];
+    $prix = $_GET["prix"];
+    $vols = $bdd->query("SELECT * FROM vol WHERE prix_vol < ".$prix." AND id_aero = ".$aerodep." AND id_aero_AEROPORT = ".$aeroarr." AND date_depart BETWEEN '".$depart." 00:00:00' AND '".$depart." 23:59:59';");
 
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -26,7 +33,7 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
     <title>AeroLines</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../resources/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -42,7 +49,7 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="../../resources/css/aero.css" rel="stylesheet">
+    <link href="../../css/aero.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -66,20 +73,32 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
                     <th></th>
                 </tr>
                 <!-- Là il faut boucler sur les vols qu'on veut -->
-                <tr>
-                    <td><img class="dest-logo" src="http://www.pmdm.fr/wp/wp-content/uploads/2009/02/monogramme_copie.jpg"></td>
-                    <td>05/07/2016 14:30</td>
-                    <td>Paris-Orly</td>
-                    <td>05/07/2016 15:40</td>
-                    <td>Lyon-Saint-Exupery</td>
-                    <td>132</td>
-                    <td>150€</td>
-                    <td>
-                        <form action="vol.php">
-                            <input type="submit" value="Réserver">
-                        </form>
-                    </td>
-                </tr>
+                <?php
+
+                while($vol = $vols->fetch()) {
+                    if($places <= $vol["nb_places_vol"]) {
+                        $compagnie_logo = $bdd->query("SELECT logo_comp FROM COMPAGNIE WHERE id_comp=" . $vol["id_comp"] . ";");
+                        $compagnie = $compagnie_logo->fetch();
+                        $aero_depart = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=" . $vol["id_aero"] . ";");
+                        $aero_dep = $aero_depart->fetch();
+                        $aero_arrivee = $bdd->query("SELECT libelle_aero FROM AEROPORT WHERE id_aero=" . $vol["id_aero_AEROPORT"] . ";");
+                        $aero_arr = $aero_arrivee->fetch();
+                        echo("
+                <tr >
+                    <td ><img class=\"dest-logo\" src = \"" . $compagnie["logo_comp"] . "\" ></td >
+                    <td >" . $vol["date_depart"] . "</td >
+                    <td >" . $aero_dep["libelle_aero"] . "</td >
+                    <td >" . $vol["date_arrivee"] . "</td >
+                    <td >" . $aero_arr["libelle_aero"] . "</td >
+                    <td >" . $vol["nb_places_vol"] . "</td >
+                    <td >" . $vol["prix_vol"] * $places . "€</td >
+                    <td >
+                        <a class=\"btn btn-default\" href=\"vol.php?id_vol=" . $vol["id_vol"] . "\" role=\"button\">Réserver &raquo;</a></p>
+                    </td >
+                </tr >");
+                    }
+                }
+                ?>
             </table>
 
         </div><!-- /.col-lg-4 -->
@@ -93,7 +112,7 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
     <!-- FOOTER -->
     <footer>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Termes</a> &middot; <a href="#">Conditions générales d'utilisation</a></p>
+        <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
 
 </div><!-- /.container -->

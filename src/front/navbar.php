@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/OracleACSIProject/src">AEROLines</a>
+                    <a class="navbar-brand" href="/OracleACSIProject/src/index.php">AEROLines</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -28,13 +28,10 @@
 
                                     echo("
                             <li><a href=\"/OracleACSIProject/src/front/recherche-vol.php\">Recherche avancée</a></li>
-                            <li class=\"dropdown\">
-                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Mon compte<span class=\"caret\"></span></a>
-                            <ul class=\"dropdown-menu\">
-                                <li><a href=\"#\">Mes informations</a></li>
+                                <li><a href=\"/OracleACSIProject/src/front/UserDetail.php\">Mes informations</a></li>
                                 <li><a href=\"#\">Mes commandes</a></li>
 
-                            </ul>
+
                         </li>
                         <li ><a href=\"/OracleACSIProject/src/front/deconnection.php\">Se déconnecter</a></li>
                     </ul>");
@@ -48,3 +45,4 @@
 
     </div>
 </div>
+

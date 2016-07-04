@@ -57,19 +57,40 @@ if(!empty($_POST['login']) && !empty($_POST['password']) )
 <head>
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aero.css">
     <meta charset="UTF-8">
 
     <title>Title</title>
 </head>
-<body class="connexion">
+<body>
+<?php include('navbar.php'); ?>
+<div class="container marketing">
 
-<form class="form-signin" method="post" action="">
-    <input type="text" class="form-control" placeholder="Login" name="login" required autofocus><br>
-    <input type="password" class="form-control" placeholder="Password" name="password" required><br>
-    <button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Connexion</button><br>
-    <a class="btn btn-lg btn-primary btn-block" id="button-login" href="inscription.php">Créer un compte</a>
+    <!-- Formulaire -->
+    <div id="Création_compte" class="inscr-div">
+        <h2>Se connecter</h2>
 
-</form>
+        <form method="post" action="">
+            <table class="table inscr-table">
+
+                <tr><td><input type="text" placeholder="Login" name="login" class="form-control" required autofocus></td></tr>
+                <tr><td><input type="password" placeholder="Password" name="password" class="form-control" required></td></tr>
+                <tr><td><button class="btn btn-lg btn-primary btn-block" id="button-login" type="submit">Connexion</button></td></tr>
+                <tr><td><a class="btn btn-lg btn-primary btn-block" id="button-login" href="inscription.php">Créer un compte</a></td></tr>
+
+            </table>
+        </form>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
+        <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
+    </footer>
+
+</div><!-- /.container -->
+
 
 </body>
 </html>

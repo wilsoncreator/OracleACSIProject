@@ -3,11 +3,14 @@
 session_start();
 if(!isset($_SESSION["ID"])){
     session_destroy();
+    header("location:connection.php");
 }
 
 if(empty($_GET['id_vol'] )||!isset($_GET['id_vol'])){
     header("location:../index.php");
 }
+
+
 
 require_once('../../Entity/connexion_db.php');
 require_once('../../Entity/reserve.php');
@@ -15,14 +18,26 @@ require_once('../../Entity/vol.php');
 
 $bdd = connexion_db::getInstance();
 
+$vols = $bdd->query("SELECT * FROM vol WHERE id_vol =".$_GET['id_vol'].";");
+$vol = $vols->fetch();
+if(!isset($vol["id_vol"])){
+    header("location:../index.php");
+}
+
 if(isset($_POST["nb_places"])){
     $vols = $bdd->query("SELECT nb_places_vol, id_vol, prix_vol, id_dest FROM vol WHERE id_vol=".$_GET['id_vol'].";");
     $vol = $vols->fetch();
-    $reservation = new reserve($_SESSION['ID'], $_GET['id_vol'], $_POST["nb_places"], $vol["prix_vol"]*$_POST["nb_places"]);
-    $reservation->addReserve($reservation->getUser(), $reservation->getVol(), $reservation->getNbplaces(), $reservation->getPrixtotal());
-    $nbplaces = $vol["nb_places_vol"] - $_POST["nb_places"];
-    $bdd->exec("UPDATE vol SET nb_places_vol = ".$nbplaces." WHERE id_vol = ".$_GET['id_vol'].";");
-    $bdd->exec("UPDATE destination SET nbreservation = nbreservation+1 WHERE id_dest=".$vol['id_dest'].";");
+    if($_POST["nb_places"] <= $vol["nb_places_vol"]) {
+        $reservation = new reserve($_SESSION['ID'], $_GET['id_vol'], $_POST["nb_places"], $vol["prix_vol"] * $_POST["nb_places"]);
+        $reservation->addReserve($reservation->getUser(), $reservation->getVol(), $reservation->getNbplaces(), $reservation->getPrixtotal());
+        $nbplaces = $vol["nb_places_vol"] - $_POST["nb_places"];
+        $bdd->exec("UPDATE vol SET nb_places_vol = " . $nbplaces . " WHERE id_vol = " . $_GET['id_vol'] . ";");
+        $bdd->exec("UPDATE destination SET nbreservation = nbreservation+1 WHERE id_dest=" . $vol['id_dest'] . ";");
+    }
+
+    else {
+        echo("<script>alert(\"Il n\'y a plus assez de places sur ce vol\")</script>");
+    }
 }
 ?>
 
@@ -119,21 +134,17 @@ if(isset($_POST["nb_places"])){
                         <td>
                             <label for="nb_places">Nombre de places : </label>
                             <select id="nb_places" name="nb_places">
-                                <option value=1>1</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
-                                <option value=4>4</option>
-                                <option value=5>5</option>
-                                <option value=6>6</option>
-                                <option value=7>7</option>
-                                <option value=8>8</option>
-                                <option value=9>9</option>
-                                <option value=10>10</option>
+                            <?php
+
+                            for($i = 1; $i <= $vol["nb_places_vol"]; $i++){
+                                echo("<option value=>".$i."</option>");
+                            }
+                            ?>
                             </select>
                         </td>
                         <td>
                             <?php
-                            echo("<input onclick=\"if(!confirm('Voulez-vous confirmer votre réservation pour ce vol ? ?')) return false;\" type=\"submit\" value=\"Réserver\">");
+                            echo("<input onclick=\"if(!confirm('Voulez-vous confirmer votre réservation pour ce vol ?')) return false;\" type=\"submit\" value=\"Réserver\">");
                             ?>
                         </td>
                     </tr>
@@ -151,7 +162,7 @@ if(isset($_POST["nb_places"])){
     <!-- FOOTER -->
     <footer>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Termes</a> &middot; <a href="#">Conditions générales d'utilisation</a></p>
+        <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
 
 </div><!-- /.container -->

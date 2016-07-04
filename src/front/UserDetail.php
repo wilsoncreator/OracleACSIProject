@@ -2,16 +2,17 @@
 session_start();
 if(!isset($_SESSION["ID"])){
     session_destroy();
+    header("location:../index.php");
 }
+
 require_once('../../Entity/connexion_db.php');
+
 
 $bdd = connexion_db::getInstance();
 
-if (isset($_POST["date_dep"]) && isset($_POST["aero_dep"]) && isset($_POST["aero_arr"]) && isset($_POST["nbplaces"]) && isset($_POST["prixmax"]))
-{
-    header("location:liste-vols.php?datedep=".$_POST["date_dep"]."&aerodep=".$_POST["aero_dep"]."&aeroarr=".$_POST["aero_arr"]."&places=".$_POST["nbplaces"]."&prix=".$_POST["prixmax"]."");
-}
+$utilisateur = $bdd->query("SELECT * FROM utilisateur WHERE id_usr = ".$_SESSION["ID"].";");
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -54,69 +55,46 @@ if (isset($_POST["date_dep"]) && isset($_POST["aero_dep"]) && isset($_POST["aero
 
     <!-- Formulaire -->
     <div id="Création_compte" class="inscr-div">
-        <h2>Rechercher un vol</h2>
+        <h2>Vos informations</h2>
+        <?php
+        $user = $utilisateur->fetch();
 
-        <form method="post" action="">
-            <table class="table inscr-table">
+            echo("<table class=\"table inscr-table\">
                 <tr>
-                    <td><label for="login">Date de depart</label></td>
+                    <td><label>Civilité :</label></td>
                     <td>
-                        <input type="date" class="form-control" placeholder="Date de départ" name="date_dep" required><br>
+                        <label>".$user["civilite_usr"]."</label><br>
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="login">Aéroport de départ</label></td>
+                    <td><label>Nom :</label></td>
                     <td>
-                        <select name="aero_dep" id="sel1" class="form-control">
-                            <?php
-
-                            $list = $bdd->query('SELECT * FROM aeroport');
-                            while ($data = $list->fetch()) {
-                                echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
-                            }
-                            ?>
-                        </select><br><br>
+                        <label>".$user["nom_usr"]."</label><br>
                     </td>
                 </tr>
-
                 <tr>
-                    <td><label for="login">Destination</label></td>
+                    <td><label>Prénom</label></td>
                     <td>
-                        <select name="aero_arr" id="sel1" class="form-control">
-                            <?php
-
-                            $list = $bdd->query('SELECT * FROM aeroport');
-                            while ($data = $list->fetch()) {
-                                echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
-                            }
-                            ?>
-                        </select><br><br>
+                        <label>".$user["prenom_usr"]."</label><br>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><label for="login">Nombre de voyageurs</label></td>
+                    <td><label>Mail</label></td>
                     <td>
-                        <input type="number" class="form-control" placeholder="Nombre de passagers" name="nbplaces" required><br>
+                        <label>".$user["mail_usr"]."</label><br>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><label for="login">Prix max/billets</label></td>
+                    <td><label>Date de naissance</label></td>
                     <td>
-                        <input type="number" class="form-control" placeholder="Prix maximum/billets" name="prixmax" required><br>
+                        <label>".$user["date_naiss_usr"]."</label><br>
                     </td>
                 </tr>
+            </table>");
+        ?>
 
-                <tr id="cellule_bouton">
-                    <td style="padding-top: 25px;">
-                    </td>
-                    <td style="padding-top: 25px;">
-                        <input type="submit" name="valider" class="bouton_submit" value="Rechercher">
-                    </td>
-                </tr>
-            </table>
-        </form>
     </div>
 
     <!-- FOOTER -->

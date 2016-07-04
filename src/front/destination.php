@@ -11,6 +11,16 @@ if(empty($_GET['destination_id'] )||!isset($_GET['destination_id'])){
 require_once('../../Entity/connexion_db.php');
 
 $bdd = connexion_db::getInstance();
+
+$destination = $bdd->query("SELECT * FROM destination WHERE id_dest =".$_GET['destination_id'].";");
+$dest = $destination->fetch();
+if(!isset($dest["id_dest"])){
+    header("location:../index.php");
+}
+
+else {
+    $bdd->exec("UPDATE destination SET nbvue = nbvue + 1 WHERE id_dest = ".$_GET['destination_id'].";");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,8 +61,7 @@ $bdd = connexion_db::getInstance();
 
 <div class="dest-img-container">
     <?php
-
-    $destination = $bdd->query("SELECT image_dest FROM destination WHERE id_dest =".$_GET['destination_id'].";");
+    $destination = $bdd->query("SELECT * FROM destination WHERE id_dest =".$_GET['destination_id'].";");
     $dest = $destination->fetch();
     echo("
     <img class=\"dest-img\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\">");
@@ -121,7 +130,7 @@ $bdd = connexion_db::getInstance();
     <!-- FOOTER -->
     <footer>
         <!-- <p class="pull-right"><a href="#"><img class="pull-arrow" src="img/1564-1626-thickbox.jpg" alt="Pull arrow"></a></p> -->
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Termes</a> &middot; <a href="#">Conditions générales d'utilisation</a></p>
+        <p>&copy; 2016 ROSSIGNOL - MORENO - BARDEL &middot;</p>
     </footer>
 
 </div><!-- /.container -->
