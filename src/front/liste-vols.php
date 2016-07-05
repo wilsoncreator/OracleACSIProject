@@ -21,6 +21,13 @@ if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]
 
 }
 
+else if(isset ($_GET["id_aero"]) && isset ($_GET["places"])){
+    $id = $_GET["id_aero"];
+    $places = $_GET["places"];
+    $vols = $bdd->query("SELECT * FROM vol WHERE id_aero = ".$id." AND prix_vol < 100;");
+
+}
+
 else {
     header("location:../index.php");
 

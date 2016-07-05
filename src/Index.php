@@ -5,6 +5,10 @@ if(!isset($_SESSION["ID"])){
     session_destroy();
 }
 
+if(isset($_POST["id_aero"]) && isset($_POST["nbplaces"])){
+    header("location:front/liste-vols.php?id_aero=".$_POST["id_aero"]."&places=".$_POST["nbplaces"]);
+}
+
 require_once('../Entity/connexion_db.php');
 
 $bdd = connexion_db::getInstance();
@@ -66,12 +70,26 @@ $bdd = connexion_db::getInstance();
             </div>
         </div>
         <div class="item">
-            <img class="second-slide" src="img/slide/Sydney-Opera-House-18.jpg" alt="Second slide">
+            <img class="second-slide" src="../resources/images/photo.jpg" alt="Second slide">
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Le voyage le plus attendu de la semaine</h1>
-                    <p>Découvrez la destination actuelle que les vacanciers préfèrent choisir !</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Lire la suite</a></p>
+                    <h1>Bons plans du moment</h1>
+                    <p>Partez en voyage pour moins de 100€ !</p>
+                    <p>Choisissez votre aeroport de départ</p>
+                    <form method="post">
+                    <select name="id_aero" id="sel1" class="form-control">
+                        <?php
+
+                        $list = $bdd->query('SELECT * FROM aeroport');
+                        while ($data = $list->fetch()) {
+                            echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
+                        }
+                        ?>
+                    </select><br><br>
+                        <input type="number" class="form-control" placeholder="Nombre de passagers" name="nbplaces" required><br>
+
+                        <p><button type="submit" class="btn btn-lg btn-primary" role="button">Lire la suite</button></p>
+                    </form>
                 </div>
             </div>
         </div>
