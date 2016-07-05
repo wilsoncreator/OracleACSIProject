@@ -18,7 +18,7 @@ $i = 0;
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+     <link rel="icon" href="/OracleACSIProject/resources/images/logo.png">
 
     <title>AeroLines</title>
 

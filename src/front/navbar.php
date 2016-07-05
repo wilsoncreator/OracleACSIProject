@@ -11,6 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <img class="navbar-brand logo" src="/OracleACSIProject/resources/images/logo.png"/>
                     <a class="navbar-brand" href="/OracleACSIProject/src/index.php">AEROLines</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">

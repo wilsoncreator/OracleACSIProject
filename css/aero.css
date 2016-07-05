@@ -74,12 +74,14 @@ body {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .marketing h2 {
   font-weight: normal;
 }
 .marketing .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
+
 }
 
 
@@ -172,6 +174,15 @@ body {
   width: 50%;
   float: right;
 }
+.index-dest{
+  height: 370px;
+}
+.logo{
+  padding: 0;
+  height: 50px !important;
+  width: 50px !important;
+  margin-right: 10px;
+}
 
 /* Featurettes
 ------------------------- */
@@ -228,6 +239,7 @@ body {
     margin-top: 0px;
   }
 }
+
 
 
 /*.pull-arrow {

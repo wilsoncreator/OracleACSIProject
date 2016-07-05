@@ -22,7 +22,7 @@ $bdd = connexion_db::getInstance();
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/OracleACSIProject/resources/images/logo.png">
 
     <title>AeroLines</title>
 
@@ -135,7 +135,7 @@ $bdd = connexion_db::getInstance();
 
     $destinations = $bdd->query("SELECT * FROM destination ORDER BY nbvue DESC;");
     while($dest = $destinations->fetch()){
-        echo("<div class=\"col-lg-4\">
+        echo("<div class=\"col-lg-4 index-dest\">
             <img class=\"img-circle\" src=\"".$dest["image_dest"]."\" alt=\"Generic placeholder image\" width=\"140\" height=\"140\">
             <h2>".$dest["libelle_dest"]."</h2>
             <p>".substr($dest["description_dest"],0,250)."...</p>

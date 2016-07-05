@@ -21,7 +21,7 @@ if (isset($_POST["date_dep"]) && isset($_POST["aero_dep"]) && isset($_POST["aero
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+     <link rel="icon" href="/OracleACSIProject/resources/images/logo.png">
 
     <title>Aerolines</title>
 
