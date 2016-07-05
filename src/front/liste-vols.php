@@ -69,7 +69,7 @@ else {
 
     <div class="row">
         <div class="col-lg-4 destination liste-vols">
-            <h2>Vols disponibles</h2>
+            <h2 class="titre">Vols disponibles</h2>
             <table class="table table-striped dest-table">
                 <tr>
                     <th></th>
@@ -77,17 +77,8 @@ else {
                     <th>Aéroport de départ</th>
                     <th>Arrivée</th>
                     <th>Aéroport d'arrivée</th>
-                    <?php
-                    if (isset($_GET["datedep"]) && isset($_GET["aerodep"]) && isset($_GET["aeroarr"]) && isset($_GET["places"]) && isset($_GET["prix"])){
-                        echo("<th>Places restantes</th>");
-                    }
-
-                    else{
-                        echo("<th>Billets achetés</th>");
-                    }
-                    ?>
-
-                    <th>Prix</th>
+                    <th>Places restantes</th>
+                    <th>Prix Total</th>
                     <th></th>
                 </tr>
                 <!-- Là il faut boucler sur les vols qu'on veut -->

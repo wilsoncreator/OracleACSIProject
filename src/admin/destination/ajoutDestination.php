@@ -8,7 +8,7 @@ if($_SESSION['admin'] == true) {
 
     if(isset($_POST['destination']) && isset($_POST['destination_descr']) && isset($_POST['image']) ){
         try {
-            $destination = new destination($_POST['destination'], $_POST['image'], $_POST['destination_descr']);
+            $destination = new destination(addslashes($_POST['destination']), $_POST['image'], addslashes($_POST['destination_descr']));
             $destination->addDestination($destination->getNom(), $destination->getPhoto(), $destination->getDescription());
         }
 

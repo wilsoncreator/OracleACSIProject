@@ -1,5 +1,6 @@
 <?php
 require_once('../../../Entity/connexion_db.php');
+require_once('../../../Entity/aeroport.php');
 $bdd = connexion_db::getInstance();
 session_start();
 
@@ -7,7 +8,8 @@ if($_SESSION['admin'] == true) {
     //echo 'OK';
     if(isset($_POST['aeroport']) && isset($_POST['destination_name'])){
         try {
-            $req = $bdd->exec("INSERT INTO aeroport (id_dest, libelle_aero) VALUES ('" . $_POST['destination_name'] . "','" . $_POST['aeroport'] . "' )");
+            $aeroport = new aeroport(addslashes($_POST['aeroport']), $_POST['destination_name']);
+            $aeroport->addAeroport($aeroport->getLibelle(), $aeroport->getDest());
             echo 'aeroport ajoutée';
         }
 

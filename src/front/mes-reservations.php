@@ -56,7 +56,7 @@ $bdd = connexion_db::getInstance();
 
     <div class="row">
         <div class="col-lg-4 destination liste-vols">
-            <h2>Mes réservations</h2>
+            <h2 class="titre">Mes réservations</h2>
             <table class="table table-striped dest-table">
                 <tr>
                     <th></th>

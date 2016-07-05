@@ -34,11 +34,14 @@
 
                         </li>
                         <li ><a href=\"/OracleACSIProject/src/front/deconnection.php\">Se déconnecter</a></li>
-                    </ul>");
+                    ");
+                                    if($_SESSION["admin"] == true){
+                                        echo("<li ><a href=\"/OracleACSIProject/src/admin/admin.php\">Interface admin</a></li>");
+                                    }
 
                                 }
                         ?>
-
+                    </ul>
                 </div>
             </div>
         </nav>

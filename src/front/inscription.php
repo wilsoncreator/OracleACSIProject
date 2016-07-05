@@ -154,7 +154,7 @@ session_start();
 
                 <tr>
                     <td><label for="datenaiss_utilisateur">Date de naissance</label></td>
-                    <td><input type="text" name="datenaiss" placeholder="JJ/MM/AAAA" size="25" ></td>
+                    <td><input type="date" name="datenaiss" placeholder="JJ/MM/AAAA" size="25" ></td>
                 </tr>
 
                 <tr>

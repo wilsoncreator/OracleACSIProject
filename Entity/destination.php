@@ -22,7 +22,7 @@ class destination
 
     function addDestination($nom, $photo, $description){
         $bdd = connexion_db::getInstance();
-        $bdd->exec("INSERT INTO destination (libelle_dest, description_dest, image_dest) VALUES ('".$nom."','".$description."','".$photo."')");
+        $bdd->exec("INSERT INTO destination (libelle_dest, description_dest, image_dest) VALUES ('".$nom."','".$description."','".$photo."');");
     }
 
     /**
