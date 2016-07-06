@@ -10,12 +10,13 @@ if($_SESSION['admin'] == true) {
         try {
             $aeroport = new aeroport(addslashes($_POST['aeroport']), $_POST['destination_name']);
             $aeroport->addAeroport($aeroport->getLibelle(), $aeroport->getDest());
-            echo 'aeroport ajoutée';
+            header("location:aeroport-liste.php");
         }
 
         catch(Exception $ex){
             echo 'erreur lors de l\'ajout de l\' aeroport '.$ex->getMessage().$_POST['destination_name'];
         }
+
     }
 }
 

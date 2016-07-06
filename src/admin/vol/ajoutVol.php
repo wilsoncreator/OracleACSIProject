@@ -11,12 +11,14 @@ if($_SESSION['admin'] == true) {
         try {
             $vol = new vol($_POST['prix_vol'],$_POST['date_dep_vol'],$_POST['date_arr_vol'],$_POST['nbplaces_vol'],$_POST['nbcorress_vol'],$_POST['compagnie_vol'], $_POST['destination_vol'], $_POST['aero_dep_vol'],$_POST['aero_arr_vol']);
             $vol ->addVol($vol->getPrix(),$vol->getDepart(),$vol->getArrivee(),$vol->getNbplaces(),$vol->getNbcorresp(),$vol->getCompagnie(),$vol->getDestination(),$vol->getAerodepart(),$vol->getAeroarrive());
-            echo 'vol ajoutée';
+            header("location:vol-liste.php");
+
         }
 
         catch(Exception $ex){
             echo 'erreur lors de l\'ajout du vol '.$ex->getMessage();
         }
+        header("location:vol-liste.php");
     }
 }
 

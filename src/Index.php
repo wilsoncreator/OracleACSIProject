@@ -54,41 +54,47 @@ $bdd = connexion_db::getInstance();
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="0" ></li>
+        <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
+
     <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img class="first-slide" src="img/slide/stonehenge.jpg" alt="First slide">
+        <div class="item ">
+            <img class="first-slide" src="img/slide/stonehenge.jpg\" alt="First slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Pas encore inscrit ?</h1>
                     <p>Enregistrez-vous dès maintenant et profitez de nos offres promotionnelles. </br> Simple et efficace !</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Inscrivez-vous</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="front/inscription.php" role="button">Inscrivez-vous</a></p>
                 </div>
             </div>
         </div>
-        <div class="item">
+
+
+
+        <div class="item active">
             <img class="second-slide" src="../resources/images/photo.jpg" alt="Second slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Bons plans du moment</h1>
                     <p>Partez en voyage pour moins de 100€ !</p>
-                    <p>Choisissez votre aeroport de départ</p>
+                    <p>Choisissez votre lieu de départ</p>
                     <form method="post">
                     <select name="id_aero" id="sel1" class="form-control">
                         <?php
 
                         $list = $bdd->query('SELECT * FROM aeroport');
                         while ($data = $list->fetch()) {
-                            echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
+                            $destination = $bdd->query("SELECT libelle_dest FROM destination WHERE id_dest = ".$data['id_aero'].";");
+                            $dest = $destination->fetch();
+                            echo "<option value =".$data['id_aero'].">".$dest["libelle_dest"]." - ".$data['libelle_aero']."</option>";
                         }
                         ?>
                     </select><br><br>
                         <input type="number" class="form-control" placeholder="Nombre de passagers" name="nbplaces" required><br>
 
-                        <p><button type="submit" class="btn btn-lg btn-primary" role="button">Lire la suite</button></p>
+                        <p><button type="submit" class="btn btn-lg btn-primary" role="button">Rechercher</button></p>
                     </form>
                 </div>
             </div>

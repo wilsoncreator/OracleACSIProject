@@ -25,6 +25,12 @@ class destination
         $bdd->exec("INSERT INTO destination (libelle_dest, description_dest, image_dest) VALUES ('".$nom."','".$description."','".$photo."');");
     }
 
+    function updateDestination ($nom, $photo, $description, $id){
+        $bdd = connexion_db::getInstance();
+        $bdd->exec("UPDATE destination SET libelle_dest = '".$nom."', description_dest = '".$description."',image_dest = '".$photo."' WHERE id_dest =".$id.";");
+    }
+    
+
     /**
      * @return mixed
      */

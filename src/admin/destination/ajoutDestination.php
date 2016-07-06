@@ -10,11 +10,13 @@ if($_SESSION['admin'] == true) {
         try {
             $destination = new destination(addslashes($_POST['destination']), $_POST['image'], addslashes($_POST['destination_descr']));
             $destination->addDestination($destination->getNom(), $destination->getPhoto(), $destination->getDescription());
+            header("location:destination-liste.php");
         }
 
         catch(Exception $ex){
             echo 'erreur lors de l\'ajout de la destination' .$ex->getMessage();
         }
+
     }
 }
 

@@ -22,6 +22,11 @@ class aeroport
         $bdd = connexion_db::getInstance();
         $bdd->exec("INSERT INTO aeroport (libelle_aero, id_dest) VALUES ('" . $libelle . "'," . $dest . ")");
     }
+
+    function updateAeroport($libelle, $id){
+        $bdd = connexion_db::getInstance();
+        $bdd->exec("UPDATE aeroport SET libelle_aero='".$libelle."' WHERE id_aero =".$id.";");
+    }
     /**
      * @return mixed
      */

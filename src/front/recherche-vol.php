@@ -72,7 +72,9 @@ if (isset($_POST["date_dep"]) && isset($_POST["aero_dep"]) && isset($_POST["aero
 
                             $list = $bdd->query('SELECT * FROM aeroport');
                             while ($data = $list->fetch()) {
-                                echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
+                                $destination = $bdd->query("SELECT libelle_dest FROM destination WHERE id_dest = ".$data['id_aero'].";");
+                                $dest = $destination->fetch();
+                                echo "<option value =".$data['id_aero'].">".$dest["libelle_dest"]." - ".$data['libelle_aero']."</option>";
                             }
                             ?>
                         </select><br><br>
@@ -87,7 +89,9 @@ if (isset($_POST["date_dep"]) && isset($_POST["aero_dep"]) && isset($_POST["aero
 
                             $list = $bdd->query('SELECT * FROM aeroport');
                             while ($data = $list->fetch()) {
-                                echo "<option value =".$data['id_aero'].">".$data['libelle_aero']."</option>";
+                                $destination = $bdd->query("SELECT libelle_dest FROM destination WHERE id_dest = ".$data['id_aero'].";");
+                                $dest = $destination->fetch();
+                                echo "<option value =".$data['id_aero'].">".$dest["libelle_dest"]." - ".$data['libelle_aero']."</option>";
                             }
                             ?>
                         </select><br><br>

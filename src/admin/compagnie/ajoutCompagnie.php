@@ -12,11 +12,13 @@ if($_SESSION['admin'] == true) {
             // echo 'compagnie ajoutée';
             $compagnie = new Compagnie($_POST['compagnie'], $_POST['logo']);
             $compagnie ->addCompagnie($compagnie->getNom(), $compagnie->getLogo());
+            header("location:compagnie-liste.php");
         }
 
         catch(Exception $ex){
             echo 'erreur lors de l\'ajout de la compagnie' .$ex->getMessage();
         }
+
     }
 }
 

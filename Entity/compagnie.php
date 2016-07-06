@@ -22,6 +22,11 @@ class compagnie
         $bdd = connexion_db::getInstance();
         $bdd->exec("INSERT INTO compagnie (libelle_comp, logo_comp) VALUES ('" . $nom . "', '" . $logo . "')");
     }
+
+    function updateCompagnie($nom, $logo, $id){
+        $bdd = connexion_db::getInstance();
+        $bdd->exec("UPDATE compagnie SET libelle_comp='" . $nom . "', logo_comp='" . $logo ."' WHERE id_comp = ".$id.";");
+    }
     /**
      * @return mixed
      */
