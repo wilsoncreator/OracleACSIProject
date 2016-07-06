@@ -142,9 +142,9 @@ session_start();
                 <tr>
                     <td><label for="case">Civilité</label></td>
                     <td><label for="case">M</label>
-                        <input type="radio" name="civ" id="case" value="Homme" />
+                        <input type="radio" name="civ" id="case" value="M." />
                         <label for="case" style="margin-left: 30px;">Mme</label>
-                        <input type="radio" name="civ" id="case" value="femme"/></td>
+                        <input type="radio" name="civ" id="case" value="Mme."/></td>
                 </tr>
 
                 <tr>

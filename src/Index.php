@@ -61,7 +61,7 @@ $bdd = connexion_db::getInstance();
 
     <div class="carousel-inner" role="listbox">
         <div class="item ">
-            <img class="first-slide" src="img/slide/stonehenge.jpg\" alt="First slide">
+            <img class="first-slide" src="../resources/images/inscription.jpg" alt="First slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Pas encore inscrit ?</h1>
